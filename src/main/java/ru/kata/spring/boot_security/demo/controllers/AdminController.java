@@ -3,11 +3,12 @@ package ru.kata.spring.boot_security.demo.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import ru.kata.spring.boot_security.demo.models.User;
 import ru.kata.spring.boot_security.demo.services.RoleService;
 import ru.kata.spring.boot_security.demo.services.UserService;
+
+import java.security.Principal;
 
 @Controller
 @RequestMapping("/admin")
@@ -24,16 +25,14 @@ public class AdminController {
 
 
     @GetMapping()
-    public String allUsers(Model model) {
-        model.addAttribute("users", userService.allUsers());
-        return "all";
-    }
-
-    @GetMapping("/new")
-    public String newUser(Model model) {
-        model.addAttribute("user", new User());
+    public String allUsers(Model model, Principal principal) {
+        User user = new User();
+        User user1 = userService.findByEmail(principal.getName());
+        model.addAttribute("newUser", user);
+        model.addAttribute("userPrincipal", user1);
+        model.addAttribute("user", userService.allUsers());
         model.addAttribute("roles", roleService.allRoles());
-        return "save";
+        return "admin/all2";
     }
 
     @PostMapping("/new")
@@ -48,15 +47,8 @@ public class AdminController {
         return "redirect:/admin";
     }
 
-    @GetMapping("/{id}/edit")
-    public String edit(@ModelAttribute("id") int id, ModelMap model) {
-        model.addAttribute("user", userService.showUserById(id));
-        model.addAttribute("roles", roleService.allRoles());
-        return "edit";
-    }
-
     @PatchMapping("/{id}")
-    public String update(@ModelAttribute("user") User user) {;
+    public String update(@ModelAttribute("user") User user) {
         userService.update(user);
         return "redirect:/admin";
     }

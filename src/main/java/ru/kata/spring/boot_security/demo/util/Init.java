@@ -14,7 +14,6 @@ public class Init {
     private final RoleService roleService;
     private final UserService userService;
 
-    //@Autowired
     public Init(RoleService roleService, UserService userService) {
         this.roleService = roleService;
         this.userService = userService;
@@ -31,9 +30,11 @@ public class Init {
         User adminUser = new User();
         adminUser.setId(1);
         adminUser.setRoles(adminSet);
-        adminUser.setUsername("admin");
-        adminUser.setEmail("email");
-        adminUser.setPassword("password");
+        adminUser.setFirstName("admin");
+        adminUser.setLastName("admin");
+        adminUser.setEmail("email");  //логин
+        adminUser.setAge(20);
+        adminUser.setPassword("password"); //пароль
         userService.add(adminUser);
     }
 
