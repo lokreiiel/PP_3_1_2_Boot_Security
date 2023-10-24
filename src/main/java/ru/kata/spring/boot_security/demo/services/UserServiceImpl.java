@@ -57,7 +57,7 @@ public class UserServiceImpl implements UserService {
         }
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        userRepository.save(user);
+        userRepository.saveAndFlush(user);
         return true;
     }
 
@@ -69,7 +69,7 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     public User update(User user) {
-        return userRepository.save(user);
+        return userRepository.saveAndFlush(user);
     }
 
     @Transactional

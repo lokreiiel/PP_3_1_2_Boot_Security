@@ -10,6 +10,7 @@ import java.util.List;
 @Service
 @Transactional(readOnly = true)
 public class RoleServiceImpl implements RoleService {
+
     private final RoleRepository roleRepository;
 
     public RoleServiceImpl(RoleRepository roleRepository) {
@@ -24,6 +25,7 @@ public class RoleServiceImpl implements RoleService {
     public void addRole(Role role) {
         roleRepository.save(role);
     }
+
 
 
 }
