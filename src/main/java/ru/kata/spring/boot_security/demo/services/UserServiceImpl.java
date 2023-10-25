@@ -31,6 +31,7 @@ public class UserServiceImpl implements UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
+    @Transactional(readOnly = true)
     public User findByEmail(String email) {
         return userRepository.findByEmail(email);
     }
@@ -69,7 +70,8 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     public User update(User user) {
-        return userRepository.saveAndFlush(user);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        return userRepository.save(user);
     }
 
     @Transactional

@@ -17,12 +17,8 @@
 
 <nav class="navbar navbar-dark bg-dark">
     <div class="container-fluid">
-        <div class="text-white">
+        <div class="text-white" id="adminInfo">
             <h5>
-                <span th:text="${userPrincipal.getEmail()} "></span>
-                <span> with roles: </span>
-                <span th:each="roles:${userPrincipal.getRoles()}"
-                      th:text="${roles.getName().replace('ROLE_','')}+'  '"></span>
             </h5>
         </div>
         <form th:action="@{/logout}" method="POST">
@@ -310,7 +306,7 @@
 
                                                 <div class="col-md bg-white border">
                                                     <form class="offset-md-4 col-md-4 mt-3 mb-3" th:align="center"
-                                                          th:object="${newUser}" id="add">
+                                                         id="add">
 
                                                         <div class="form-group text-center">
                                                             <label for="firstName"><b>First name</b> </label>

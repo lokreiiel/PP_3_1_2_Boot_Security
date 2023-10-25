@@ -1,22 +1,22 @@
-const users = 'http://localhost:8080/api/user';
+const users = '/api/user';
 let result = '';
-const tableUser = (users) => {
-
-    let allRole = '';
-    users.roles.forEach(role => allRole += role.name.replace('ROLE_', '') + ' ');
-    result += `<tr>
-                        <td>${users.id}</td>
-                        <td>${users.firstName}</td>
-                        <td>${users.lastName}</td>
-                        <td>${users.age}</td>
-                        <td>${users.email}</td>
-                        <td>${allRole}</td>
-                   </tr>`
-
-    document.getElementById('userOne-table').innerHTML = result;
-
-}
 
 fetch(users)
     .then(response => response.json())
-    .then(data => tableUser(data))
+    .then(data => {
+        let allRole = '';
+        data.roles.forEach(role => allRole += role.name.replace('ROLE_', '') + ' ');
+        result += `<tr>
+                        <td>${data.id}</td>
+                        <td>${data.firstName}</td>
+                        <td>${data.lastName}</td>
+                        <td>${data.age}</td>
+                        <td>${data.email}</td>
+                        <td>${allRole}</td>
+                   </tr>`
+        document.getElementById('userOne-table').innerHTML = result;
+        document.getElementById('infoUser').innerHTML = `
+        <span> ${data.email}</span>
+        <span> with roles: </span>
+        <span> ${allRole}</span>`
+    })

@@ -16,14 +16,8 @@
 <!--Шапка-->
 <nav class="navbar navbar-dark bg-dark">
     <div class="container-fluid">
-        <div class="text-white" id="navbarBrand">
+        <div class="text-white" id="infoUser">
             <h5>
-
-                    <span th:text="${users.getEmail()} "></span>
-                    <span> with roles: </span>
-                    <span th:each="roles:${users.getRoles()}"
-                          th:text="${roles.getName().replace('ROLE_','')}+'  '"></span>
-
             </h5>
         </div>
 
